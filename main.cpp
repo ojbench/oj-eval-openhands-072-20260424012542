@@ -11,12 +11,15 @@
 // RISC-V 5-stage pipeline simulator
 class RISCVSimulator {
 private:
+private:
     // Register file (32 registers)
     std::vector<int> registers;
     
+public:
     // Memory (simplified)
     std::vector<int> memory;
     
+private:
     // Program counter
     int pc;
     
@@ -35,6 +38,7 @@ private:
         int funct3;
         int funct7;
         bool valid;
+        bool alu_src;  // Added missing field
     } id_ex;
     
     struct EX_MEM {
@@ -275,7 +279,7 @@ public:
     void run() {
         while (true) {
             // Check for termination condition
-            if (pc >= memory.size() * 4) {
+            if (pc >= (int)memory.size() * 4) {
                 break;
             }
             
